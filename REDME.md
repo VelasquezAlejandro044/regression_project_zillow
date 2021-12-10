@@ -1,6 +1,11 @@
 # Estimating Home Value
 ----------------------
 
+## Main Goal 
+We want to be able to predict the property tax assessed values ('taxvaluedollarcnt') of Single Family Properties that had a transaction during 2017.
+
+
+
 ## Project Objectives
 
 Construct a model to predict assessed home value for single family properties using regression techniques.
@@ -15,3 +20,4 @@ Create modules taht will make the proscess repeateable and the report easier to 
 
 Document code, process, findings, and key takeaways in a Jupyter Notebook Final Report.
 
+----------------------
