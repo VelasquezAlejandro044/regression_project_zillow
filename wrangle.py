@@ -1,15 +1,11 @@
 import pandas as pd
 import os
 from env import host, user, password
-
-
-#acquires zillow dataset
-def get_zillow_data():
-    return pd.read_sql(sql,get_connection('zillow'))
-
 import pandas as pd
 import os
 from env import host, user, password
+
+from sklearn.model_selection import train_test_split
 
 # -------------------------- Aquiere -------------------------------------------------
 # -------------------------- Aquiere -------------------------------------------------
@@ -53,7 +49,7 @@ def get_zillow_data():
 def remove_outliers(df, k, col_list):
     ''' 
     
-    Here, we remove outliers from a list of columns in a dataframe and return that dataframe
+    Remove outliers from a list of columns in a pd.df and return it
     
     '''
     
@@ -73,8 +69,54 @@ def remove_outliers(df, k, col_list):
     return df
 
 def clean_and_prep(df):
+    # clean outliers identified by Alejandro Velasquez
+    df  = df[~df.index.isin([ 10862, 15643, 36707, 45004, 50245])]
+  
+
     # drop fips and transaction_date
+    df = df.drop(labels=["transaction_date"], axis=1)
+    
     # dropping nulls
-    df = df.drop
+    df = df.dropna()
+
+    # Drop properties that don't have bathrooms
+    # 41 records
+    df = df[(df.bathrooms != 0)]
+
+    # Drop houses smaller than 200 
+    df = df[df['square_feet'] > 300]
+
+    # Change rows that have complete units from float to interger
+    df.year = df.year.astype(int)
+    df.fips = df.fips.astype(int)
+    df.zip_code = df.zip_code.astype(int)
+    
+    # Use z_score to remove outliers
+    # Elinminates 1636 
+    z_scores = stats.zscore(df)
+    abs_z_scores = np.abs(z_scores)
+    filtered_entries = (abs_z_scores < 3).all(axis = 1)
+    df = df[filtered_entries]
+
+    # remove outliers using a function define in this module as remove_outliers
+    # 6139 outliers removed
     df = remove_outliers(df, 1.5, ['bedrooms', 'bathrooms', 'square_feet', 'year', 'tax_of_property', 'tax_assessed_value_target', 'zip_code'])
+
+# Split the data
+def split_data(df):
+    '''
+    take in a DataFrame and return train, validate, and test DataFrames; stratify on survived.
+    return train, validate, test DataFrames.
+    '''
+    train_validate, test = train_test_split(df, test_size=.2, random_state= 42)
+    train, validate = train_test_split(train_validate, test_size=.3, random_state= 42)
+
+    return train, validate, test
+    
+# ------------------------------------ Scale -----------------------------------------
+
+
+
+
+    
 
