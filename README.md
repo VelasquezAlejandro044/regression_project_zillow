@@ -33,3 +33,26 @@ Document code, process, findings, and key takeaways in a Jupyter Notebook Final 
 `tax_assessed_value_target` --> x = rooms_&_bathrooms (feature engeniering by adding rooms and bathrooms)
 - Are the square feet related to the tax extimated value?
 - Does zipcode affect `tax_assessed_value_target` ---> x = zip_code
+---------------------------------------------------------------
+
+## Acquire Data
+
+Use file `acquire.py` that will upload data to the final noteboolk.
+
+--------------
+
+idx  |Feature                           |Not null values |data type|
+| --- | ---------------------------------|----------------|--------|  
+| 0   |bedrooms                       | 50611 non-null  | float64  |
+| 1   |bathrooms          | 50611 non-null  | float64  |
+| 2   |square_feet                  | 50611 non-null  | float64  |
+| 3   |year                    | 50611 non-null  | float64  |
+| 4   |tax_of_property                           | 50611 non-null  | float64  |
+| 5   |tax_assessed_value_target                        | 50611 non-null  | float64  |
+| 6   |fips                            | 50611 non-null  | float64  |
+| 7   |zip_code                     | 50611 non-null  | float64  |
+| 8   |y_hat                    | 50611 non-null  | float64 |
+| 9   |yhat_baseline                   | 50611 non-null  | float64|
+| 10  |residual                         | 50611 non-null  | float64|
+| 11  |residual_baseline                 | 50611 non-null  | float64|
+datetime64[ns]
