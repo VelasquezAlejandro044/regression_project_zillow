@@ -7,7 +7,6 @@ By: Alejandro Velasquez
 
 ## Main Goal 
 - We want to be able to predict the property tax assessed values ('taxvaluedollarcnt') of Single Family Properties that had a transaction during 2017.
-- Do not forget to add
 
 
 
